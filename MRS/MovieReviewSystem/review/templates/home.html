@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <title>Movie Review System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Movie Review System</h1>
+  <!-- <img src="{% static "review\images\t.jpg" %}"></img> -->
+  <p>Welcome to Online Movie review system</p> 
+  <a href="/review/logout/" style="color:red; border: none; background: none;" class="btn btn-info btn-lg">
+    <span class="glyphicon glyphicon-log-out">
+        
+    </span> Log Out
+</a>
+</div>
+
+<div class="container">
+{% if is_admin %}
+  <div class="row">
+   
+    <div class="col-sm-12">
+        <form action="/review/" method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.errors %}
+
+            <div class="alert alert-warning" style="border-radius: 5px;">
+               <strong>{{ form.errors }}</strong>
+           </div>
+
+        {% endif %}
+
+
+       {% for field in form %}
+
+        <div id="form_field">
+               
+            <div style="clear:both;margin-top: 5px;">
+                <p style="margin-top: 5px;">{{ field.label }}</p>
+                {{ field }}
+            </div>
+
+        </div>
+       {% endfor %}
+
+
+    <br>
+    <div class="hidden" id="submit" style="clear:both;">
+        <input class="btn btn-primary" style="background-color: #006dcc" type="submit" value="Upload" />
+    </div>
+
+   </form>
+    
+    </div>
+    
+  </div>
+{% endif %}
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3> Movies </h3>
+      <ul class="list-group">
+        {% for field in movies %}
+        <li class="list-group-item"> {{ field.movie_title }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

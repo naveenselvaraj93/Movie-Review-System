@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title> Login</title>
+  {% load static %}
+  
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700'>
+<link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/npm/daemonite-material@4.1.1/css/material.min.css'>
+
+      <style type="text/css">
+      	html, body {
+  height: 100%;
+}
+
+.loading {
+  transition-duration: .2s;
+  background-color: white;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+@keyframes scaling {
+  50% {
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
+  }
+}
+#login-bg {
+  overflow: hidden;
+}
+.wave{
+  background-color:blue;
+}
+input{
+	background-color: transparent;
+}
+
+.form-group{
+	margin-top: 50px;
+}
+.errormsg{
+	color: red;
+}
+
+
+      </style>
+
+
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/daemonite-material@4.1.1/js/material.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js'></script>
+
+  
+
+    <script> $(window).on("load", function(){
+  $('.loading').fadeOut();
+  var loginBg = anime({
+    targets: '#login-bg',
+    duration: 1000,
+    easing: 'easeInOutQuart',
+    opacity: 1
+  });
+  var loginCard = anime({
+    targets: '#login_card',
+    duration: 1250,
+    easing: 'easeInOutQuart',
+    translateY: 0,
+    opacity: 1,
+    scale: 1,
+    delay: 300
+  });
+  var loginCardBg = anime({
+    targets: '#login_card .bg',
+    opacity: 1,
+    borderRadius: '0%',
+    easing: 'easeInSine',
+    duration: 500,
+    scale: 1,
+    delay: 800,
+    complete: function(){
+      $('input#user_name').focus();
+      $('.card-footer').removeClass('text-muted');
+    }
+  });
+});</script>
+
+</head>
+
+<body>
+
+<div class="loading">
+  <div class="d-flex justify-content-center align-items-center w-100 h-100">
+    <div class="progress-circular">
+      <div class="progress-circular-wrapper">
+        <div class="progress-circular-inner">
+          <div class="progress-circular-left">
+            <div class="progress-circular-spinner"></div>
+          </div>
+          <div class="progress-circular-gap"></div>
+          <div class="progress-circular-right">
+            <div class="progress-circular-spinner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container h-100">
+  <div class="row justify-content-center align-items-center h-100">
+    <div class="col-md-6 col-lg-4">
+      <form method="post" action=" " id="login_card" class="card position-relative w-100 text-center shadow-24 bg-light" style="opacity:0; transform:translateX(50px) translateY(50px) scale(0.8);">
+      	  {% csrf_token %}
+        <div class="bg bg-transparent position-absolute w-100 h-100 bg-white" style="z-index: -1;border-radius: 100%; transform: scale(0)"></div>
+        <div class="card-content">
+          <div class="card-headerpy4">
+            <h1 class="mb-0 mt-1 h4">
+             
+                Movie Review System
+              
+            </h1>
+          </div>
+          <hr class="w-100 my-0">
+  			{% if error %}
+  			<br>
+  			<p class="errormsg">{{ error }}</p>
+  			</br>
+  			{% endif %}
+          <div class="card-body">
+            <div class="form-group">
+              <div class="floating-label">
+				<br>
+                <label for="user_name">Username</label>
+                </br>
+                {{ form.Username}}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="floating-label">
+              	<br>
+                <label for="password">Password</label>
+				</br>
+                 {{ form.password}}
+              </div>
+            </div>
+            <button class="wave btn btn-block btn-primary btn-lg material-ripple mb-2 mt-4">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+
+</html>
